@@ -1,11 +1,11 @@
 //horn: 14(A0), servo: 9, Motor:[FrontL:0, FrontR:2, BackL:4, BackR:6]
 //초음파: 11(trig),12(echo), LCD: A4,A5 
 void setup() {
-  remote_setup();
-  motor_setup();
-  distance_sensor_setup();
-  horn_setup();
-  servo_setup();
+  remote_setup(); //사용자 입력, 시리얼
+  motor_setup(); //모터
+  distance_sensor_setup(); //초음파 거리
+  horn_setup(); //부저
+  servo_setup(); //서보모터
 }
 void loop() {
   remote_loop();
@@ -17,16 +17,16 @@ void loop() {
 //****************servo*********************//
 #include <Servo.h>
 Servo face_direction_servo;
-const int servo_pin = 9; //남는 디지털 번호
+const int servo_pin = 9;
 void servo_setup(){
   face_direction_servo.attach(servo_pin);
   facing_front();
 }
-void facing_front(){
-  face_direction_servo.write(90);
+void facing_front(){ //초기화 하면 정면
+  face_direction_servo.write(90); //write 인자는 각도
 }
 void facing_left(){
-  face_direction_servo.write(150);
+  face_direction_servo.write(150); 
 }
 void facing_right(){
   face_direction_servo.write(30);
@@ -51,11 +51,11 @@ void process_horn_output(){
     if(currMillis - prevMillis >= intervalMillis){
       prevMillis = currMillis;
       horn_cnt++;
-      if(horn_cnt == 1000){
+      if(horn_cnt == 1000){ 
         horn_cnt = 0;
         horn_state_changed = false;
       }else{
-        digitalWrite(horn_pin, horn_cnt%2);
+        digitalWrite(horn_pin, horn_cnt%2); //소리 조절
       }
     }
   }
@@ -225,7 +225,7 @@ void echoIsr(){
   }else{
     echoEnd = micros();
     unsigned long echoDuration = echoEnd - echoBegin;
-    distance_input = echoDuration / 58;
+    distance_input = echoDuration / 58; //실제 거리를 측정한 부분
     distance_input_changed = true;
   }
 }
@@ -268,7 +268,7 @@ void check_right_distance(){
   Serial.print("right(cm): ");
   Serial.println(rightDistance);
 }
-void turn_left_or_right(){
+void turn_left_or_right(){ //거리 판별을 하고 좌회전 또는 우회전
   if(leftDistance >= rightDistance){
     driving_action = GOFORWARDLEFT;
     driving_action_changed = true;
@@ -277,8 +277,8 @@ void turn_left_or_right(){
     driving_action_changed = true;
   }
 }
-enum {
-  SOMETHING_NEAR = 30
+enum { //비상상황을 판단하는 기준
+  SOMETHING_NEAR = 30 //cm
 };
 bool EMERGENCY_STATE_ENABLE = false;
 void check_distance_sensor_input(){
@@ -289,7 +289,7 @@ void check_distance_sensor_input(){
     Serial.println(" cm");
 
     static int emergencyLevel = 0;
-    if(distance_input <= SOMETHING_NEAR){
+    if(distance_input <= SOMETHING_NEAR){ //30cm 7번 반복되면 비상상황 발생!
       emergencyLevel++;
       if(emergencyLevel == 7){
         //stop
