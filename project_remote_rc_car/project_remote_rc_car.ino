@@ -353,6 +353,7 @@ void emergency_loop(){
           //7. 비상 상태를 해제한다
           EMERGENCY_STATE_ENABLE = false;
           horn_state_changed = false;
+          process_emergency_state = 0;
           //8. LED 끈다
           //9. 주행 명령을 기다린다
           driving_action = GOFORWARD;
