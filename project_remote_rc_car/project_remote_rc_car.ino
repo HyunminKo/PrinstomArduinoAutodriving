@@ -1,5 +1,5 @@
 //horn: 14(A0), servo: 9, Motor:[FrontL:0, FrontR:2, BackL:4, BackR:6]
-//초음파: 11(trig),12(echo), 
+//초음파: 11(trig),12(echo), LCD: A4,A5 
 void setup() {
   remote_setup();
   motor_setup();
