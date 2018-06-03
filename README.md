@@ -1,1 +1,1 @@
-* [¸ğÅÍµå¶óÀÌ¹ö](https://docs.google.com/document/d/1pmi6uA51f27pc9i6ikW-yAttiTD29pTKydScKnUoWwc/edit#)
+ï»¿* [ëª¨í„°ë“œë¼ì´ë²„](https://docs.google.com/document/d/1pmi6uA51f27pc9i6ikW-yAttiTD29pTKydScKnUoWwc/edit#)
